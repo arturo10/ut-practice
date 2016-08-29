@@ -33,11 +33,11 @@ public DateClass testdate;
 	}
 	@Test
 	public void Invalid_Year() {
-        assertEquals("Bad format", testdate.getAge("12/13/ABCD"));
+        assertEquals("Invalid year", testdate.getAge("12/13/ABCD"));
 	}
 	@Test
 	public void Future_Date() {
-        assertEquals("This is not a date", testdate.getAge("12/12/2025"));
+        assertEquals("Future date", testdate.getAge("12/12/2025"));
 	}
 
 }

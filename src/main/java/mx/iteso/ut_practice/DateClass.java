@@ -26,37 +26,46 @@ public class DateClass {
                 int months = 0;
                 int days = 0;
 
-                if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
-                    age--;
-                    months = today.get(Calendar.MONTH);
-                    days = today.get(Calendar.DAY_OF_MONTH);
-                } else if (today.get(Calendar.DAY_OF_YEAR) == dob.get(Calendar.DAY_OF_YEAR)) {
-                    months = 0;
-                    days = 0;
-                } else {
-                    if ((today.get(Calendar.MONTH) == dob.get(Calendar.MONTH))) {
-                        months = 0;
-                        days = today.get(Calendar.DAY_OF_MONTH) - dob.get(Calendar.DAY_OF_MONTH);
-                    } else {
-                        if (today.get(Calendar.DAY_OF_MONTH) >= dob.get(Calendar.DAY_OF_MONTH)) {
-                            months = (today.get(Calendar.MONTH) - dob.get(Calendar.MONTH));
-                            days = (today.get(Calendar.DAY_OF_MONTH) - dob.get(Calendar.DAY_OF_MONTH));
-                        } else {
-                            Calendar calBirth = new GregorianCalendar(dob.get(Calendar.YEAR), dob.get(Calendar.MONTH), dob.get(Calendar.DAY_OF_MONTH));
+                if(age>0){
 
-                            days = (calBirth.getActualMaximum(Calendar.DAY_OF_MONTH) - dob.get(Calendar.DAY_OF_MONTH)) + today.get(Calendar.DAY_OF_MONTH);
-                            months = (today.get(Calendar.MONTH) - dob.get(Calendar.MONTH)) - 1;
+                    if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+                        age--;
+                        months = today.get(Calendar.MONTH);
+                        days = today.get(Calendar.DAY_OF_MONTH);
+                    } else if (today.get(Calendar.DAY_OF_YEAR) == dob.get(Calendar.DAY_OF_YEAR)) {
+                        months = 0;
+                        days = 0;
+                    } else {
+                        if ((today.get(Calendar.MONTH) == dob.get(Calendar.MONTH))) {
+                            months = 0;
+                            days = today.get(Calendar.DAY_OF_MONTH) - dob.get(Calendar.DAY_OF_MONTH);
+                        } else {
+                            if (today.get(Calendar.DAY_OF_MONTH) >= dob.get(Calendar.DAY_OF_MONTH)) {
+                                months = (today.get(Calendar.MONTH) - dob.get(Calendar.MONTH));
+                                days = (today.get(Calendar.DAY_OF_MONTH) - dob.get(Calendar.DAY_OF_MONTH));
+                            } else {
+                                Calendar calBirth = new GregorianCalendar(dob.get(Calendar.YEAR), dob.get(Calendar.MONTH), dob.get(Calendar.DAY_OF_MONTH));
+
+                                days = (calBirth.getActualMaximum(Calendar.DAY_OF_MONTH) - dob.get(Calendar.DAY_OF_MONTH)) + today.get(Calendar.DAY_OF_MONTH);
+                                months = (today.get(Calendar.MONTH) - dob.get(Calendar.MONTH)) - 1;
+                            }
                         }
                     }
-                }
 
-                int day = today.get(Calendar.DAY_OF_MONTH);
-                year = String.valueOf(age);
-                result = "Tienes " + year + " años ," + months + " meses, " + days + " dias";
+                    int day = today.get(Calendar.DAY_OF_MONTH);
+                    year = String.valueOf(age);
+                    result = "Tienes " + year + " años ," + months + " meses, " + days + " dias";
+                }else{
+                    result ="Future date";
+                }
             }
 
 		}catch(java.text.ParseException ex){
-		    if(dateOfBirth.matches("[a-zA-Z]+")){
+		    if(dateOfBirth.matches("[0-9]{2}-[0-9]{2}-[0-9a-zA-Z]{4}")
+                    && dateOfBirth.split("-")[2].matches("[a-zA-Z]+")){
+		        result="Invalid year";
+            }
+		    else if(dateOfBirth.matches("[a-zA-Z]+")){
                 result="This is not a date";
             }else{
 
